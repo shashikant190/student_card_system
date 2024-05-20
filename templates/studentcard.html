@@ -1,0 +1,64 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>Student Card</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="container mt-5">
+        <form class="form" id="generateStudentCardForm" method="POST" action="">
+            {% csrf_token %}
+            <span class="title">Generate Student Card</span>
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" required>
+            </div>
+            <div class="form-group">
+                <label for="father_name">Father's Name</label>
+                <input type="text" class="form-control" id="father_name" name="father_name" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" class="form-control" id="dob" name="dob" required>
+            </div>
+            <div class="form-group">
+                <label for="phone_number">Phone Number</label>
+                <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" class="form-control" id="address" name="address" required>
+            </div>
+            {% comment %} <div class="form-group">
+                <button type="button" class="btn btn-primary" id="generateBarcode">Generate Barcode</button>
+                <img src="" alt="Barcode" id="barcodeImage" class="ml-3" style="max-height: 100px;">
+            </div> {% endcomment %}
+            <div class="form-group">
+                <button type="button" class="btn btn-success" id="generateStudentCard">Generate Student Card</button>
+            </div>
+        </form>
+    </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+        <script src="{% static 'js/studentcard.js' %}"></script>
+        <script>
+            {% if error == "no" %}
+                alert('Student card generated successfully.');
+                window.location = ('{% url "studentdashboard_html" %}');
+            {% elif error == "yes" %}
+                alert('Failed to generate student card. Try again...');
+            {% endif %}
+        </script>
+</body>
+</html>
